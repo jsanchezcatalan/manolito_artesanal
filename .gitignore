@@ -1,0 +1,11 @@
+# Ignorar dependencias de Node (pesan demasiado)
+node_modules/
+**/node_modules/
+
+# Ignorar variables de entorno (¡SEGURIDAD! Contiene tu contraseña)
+.env
+**/.env
+
+# Ignorar archivos basura del sistema operativo
+.DS_Store
+Thumbs.db
