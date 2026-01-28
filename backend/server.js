@@ -2,19 +2,24 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
 // Middlewares
-app.use(express.json()); // RA2.b (JSON válido)
+app.use(express.json()); 
 app.use(cors());
+
+// SERVIR FRONTEND 
+// Esto hace que http://localhost:3000 cargue los archivos HTML, CSS y JS
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // --- RA3: CONEXIÓN A BASE DE DATOS ---
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Conectado a MongoDB Atlas'))
     .catch(err => console.error('❌ Error de conexión:', err));
 
-// --- RA3.a / RA3.e: ESQUEMA MONGOOSE ---
+// ESQUEMA MONGOOSE
 const taskSchema = new mongoose.Schema({
     titulo: { 
         type: String, 
@@ -37,7 +42,6 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('Task', taskSchema);
 
-// --- RA2: API REST ---
 
 // GET /api/tasks: Devuelve todas las tareas
 app.get('/api/tasks', async (req, res) => {
@@ -54,7 +58,7 @@ app.post('/api/tasks', async (req, res) => {
     try {
         const newTask = new Task(req.body);
         const savedTask = await newTask.save();
-        res.status(201).json(savedTask); // Código 201: Created
+        res.status(201).json(savedTask); 
     } catch (error) {
         res.status(500).json({ error: 'Error al guardar tarea' });
     }
@@ -71,6 +75,12 @@ app.delete('/api/tasks/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar tarea' });
     }
+});
+
+
+// Si entran a http://localhost:3000/, les enviamos el index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
 // --- RA2.a: SERVIDOR ---
