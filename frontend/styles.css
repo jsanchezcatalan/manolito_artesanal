@@ -1,217 +1,71 @@
-:root {
-    /* Paleta de colores más vibrante y "retro" */
-    --main-accent: #8b5cf6; /* Un violeta eléctrico */
-    --accent-hover: #7c3aed;
-    --bg-color: #e0e7ff; /* Azul muy pálido, no blanco clínico */
-    --card-bg: #ffffff;
-    --text-color: #0f172a;
-    
-    /* Variables para el estilo "Hard Edge" */
-    --border-black: 2px solid #000000;
-    --hard-shadow: 4px 4px 0px #000000; /* Sombra sólida, sin desenfoque */
-    --radius-small: 4px; /* Bordes menos redondos, más técnicos */
-}
+/* style.css */
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root {
+    /* Sobrescribimos o definimos colores que nos gusten más que los default */
+    --bs-primary: #6366f1; /* Un índigo más moderno que el azul de Bootstrap */
+    --bs-primary-hover: #4f46e5;
+    --bs-body-bg: #f3f4f6; /* Gris muy suave de fondo */
 }
 
 body {
-    /* Fuente monoespaciada para ese look de "taller de código" */
-    font-family: 'Courier New', Courier, monospace; 
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-    background-size: 20px 20px; /* Efecto papel milimetrado sutil */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Mejora la legibilidad de la fuente */
+    -webkit-font-smoothing: antialiased; 
 }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
+/* PEQUEÑOS RETOQUES A COMPONENTES DE BOOTSTRAP */
+
+/* 1. Inputs: Les quitamos el borde gris feo al hacer click y ponemos nuestro color */
+.form-control:focus, .form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
 }
 
-/* Header con estilo bloque */
-header {
-    background: var(--card-bg);
-    border: var(--border-black);
-    box-shadow: var(--hard-shadow);
-    padding: 1.5rem;
-    margin: 2rem 0;
-    text-align: center;
-    border-radius: var(--radius-small);
-}
-
-header h1 {
-    color: var(--text-color);
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    font-weight: 900;
-}
-
-/* Formulario estilo tarjeta */
-.form-section {
-    background: #ffedd5; /* Fondo naranja pastel para diferenciar */
-    padding: 2rem;
-    border: var(--border-black);
-    box-shadow: var(--hard-shadow);
-    border-radius: var(--radius-small);
-    margin-bottom: 3rem;
-}
-
-.form-group {
-    margin-bottom: 1.2rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-}
-
-/* Inputs que parecen terminales o cajas fuertes */
-input, select {
-    width: 100%;
-    padding: 0.8rem;
-    border: var(--border-black);
-    border-radius: var(--radius-small);
-    font-size: 1rem;
-    font-family: inherit; /* Heredar la fuente mono */
-    background: white;
-    transition: all 0.1s;
-}
-
-input:focus, select:focus {
-    outline: none;
-    background: #f0f9ff;
-    transform: translate(-2px, -2px); /* Pequeño salto visual */
-    box-shadow: 2px 2px 0px #000;
-}
-
-/* Botón con efecto mecánico */
+/* 2. Botón Principal: Usamos nuestro color índigo */
 .btn-primary {
-    background-color: var(--main-accent);
-    color: white;
-    padding: 1rem;
-    border: var(--border-black);
-    border-radius: var(--radius-small);
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1rem;
-    text-transform: uppercase;
-    box-shadow: var(--hard-shadow); /* Sombra dura inicial */
-    transition: all 0.1s;
-    font-family: inherit;
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    font-weight: 600;
 }
 
 .btn-primary:hover {
-    background-color: var(--accent-hover);
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px #000; /* La sombra crece al pasar el mouse */
+    background-color: var(--bs-primary-hover);
+    border-color: var(--bs-primary-hover);
 }
 
-.btn-primary:active {
-    transform: translate(2px, 2px); /* Se hunde al hacer click */
-    box-shadow: 0px 0px 0px #000;
-}
-
-/* Grid de Tareas */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem; /* Más espacio para las sombras */
-}
-
+/* 3. Cards de Tareas (Customización ligera) */
+/* Bootstrap ya tiene la clase .card, aquí solo le damos cariño extra */
 .card {
-    background: var(--card-bg);
-    padding: 1.5rem;
-    border: var(--border-black);
-    border-radius: var(--radius-small);
-    box-shadow: var(--hard-shadow);
-    transition: transform 0.2s;
-    position: relative;
+    border-radius: 0.75rem; /* Bordes un poco más redondeados que el standard */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 8px 8px 0px #000;
-    z-index: 10;
+/* Efecto hover sutil */
+.task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important; /* !important para ganar a Bootstrap shadow-sm */
 }
 
-/* Estados de la tarjeta usando colores más crudos */
-.card {
-    border-left: 8px solid #facc15; /* Amarillo alerta */
+/* La barrita de color lateral para el estado */
+.task-card {
+    border-left: 5px solid #fbbf24; /* Amarillo para pending */
+    overflow: hidden;
 }
 
-.card.done {
-    border-left-color: #22c55e; /* Verde brillante */
-    background-color: #f0fdf4;
-    opacity: 0.8; /* Efecto visual de "archivado" */
+.task-card.done {
+    border-left-color: #10b981; /* Verde para done */
+    background-color: #f0fdf4; /* Fondo verde muy clarito */
 }
 
-.card h3 {
-    margin-bottom: 0.8rem;
-    font-size: 1.3rem;
-    font-weight: 800;
-}
-
+/* Tags de tecnología */
 .tech-tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background-color: #f1f5f9;
+    color: #475569;
+    padding: 4px 10px;
+    border-radius: 20px;
     display: inline-block;
-    background: #000;
-    color: #fff;
-    padding: 0.3rem 0.6rem;
-    border-radius: 0; /* Tag cuadrada */
-    font-size: 0.75rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    text-transform: lowercase;
-}
-
-.delete-btn {
-    background-color: #ef4444;
-    color: white;
-    border: var(--border-black);
-    padding: 0.5rem;
-    border-radius: var(--radius-small);
-    cursor: pointer;
-    width: 100%;
-    margin-top: 1rem;
-    font-weight: bold;
-    font-family: inherit;
-    box-shadow: 2px 2px 0px #000;
-}
-
-.delete-btn:hover {
-    background-color: #dc2626;
-    transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0px #000;
-}
-
-.delete-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 0 0 0;
-}
-
-/* Ajuste Responsive para móviles */
-@media (max-width: 600px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    header h1 {
-        font-size: 1.8rem;
-    }
+    margin-bottom: 10px;
 }
