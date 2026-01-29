@@ -1,71 +1,142 @@
-/* style.css */
-
-:root {
-    /* Sobrescribimos o definimos colores que nos gusten más que los default */
-    --bs-primary: #6366f1; /* Un índigo más moderno que el azul de Bootstrap */
-    --bs-primary-hover: #4f46e5;
-    --bs-body-bg: #f3f4f6; /* Gris muy suave de fondo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    /* Mejora la legibilidad de la fuente */
-    -webkit-font-smoothing: antialiased; 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
 }
 
-/* PEQUEÑOS RETOQUES A COMPONENTES DE BOOTSTRAP */
-
-/* 1. Inputs: Les quitamos el borde gris feo al hacer click y ponemos nuestro color */
-.form-control:focus, .form-select:focus {
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 2. Botón Principal: Usamos nuestro color índigo */
-.btn-primary {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
-    font-weight: 600;
+main {
+    padding-bottom: 3rem;
 }
 
-.btn-primary:hover {
-    background-color: var(--bs-primary-hover);
-    border-color: var(--bs-primary-hover);
-}
-
-/* 3. Cards de Tareas (Customización ligera) */
-/* Bootstrap ya tiene la clase .card, aquí solo le damos cariño extra */
-.card {
-    border-radius: 0.75rem; /* Bordes un poco más redondeados que el standard */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Efecto hover sutil */
-.task-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important; /* !important para ganar a Bootstrap shadow-sm */
-}
-
-/* La barrita de color lateral para el estado */
+/* Tarjetas de tareas */
 .task-card {
-    border-left: 5px solid #fbbf24; /* Amarillo para pending */
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 12px;
     overflow: hidden;
 }
 
-.task-card.done {
-    border-left-color: #10b981; /* Verde para done */
-    background-color: #f0fdf4; /* Fondo verde muy clarito */
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Tags de tecnología */
+/* Tarjeta completada */
+.task-card.done {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    opacity: 0.85;
+}
+
+.task-card.done h3 {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+/* Tarjeta en historial (eliminada) */
+.task-card.deleted {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    border: 2px dashed #e17055;
+}
+
+.task-card.deleted h3 {
+    color: #636e72;
+}
+
+/* Etiqueta de tecnología */
 .tech-tag {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    background-color: #f1f5f9;
-    color: #475569;
-    padding: 4px 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 12px;
     border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Botón eliminar */
+.delete-btn {
+    border: 2px solid #dc3545;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #dc3545;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Formulario */
+.form-control:focus,
+.form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    font-weight: 600;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Animación de carga */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading-text {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .task-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Badges personalizados */
+.badge {
+    padding: 6px 12px;
+    font-weight: 500;
+}
+
+/* Estilos adicionales para historial */
+.task-card.deleted .tech-tag {
+    background: linear-gradient(135deg, #d63031 0%, #e17055 100%);
+}
+
+.btn-outline-success:hover {
+    background: #28a745;
+    color: white;
+}
+
+.btn-outline-danger:hover {
+    background: #dc3545;
+    color: white;
 }
